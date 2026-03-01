@@ -3,14 +3,16 @@ import { Flame, Lock, Trophy } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { useStreakInfo } from "../hooks/useQueries";
+import { getBT21Character } from "./BT21Characters";
 
 interface Milestone {
   days: number;
   name: string;
   description: string;
   songQuote: string;
-  doodle: string;
   emoji: string;
+  memberPhoto: string;
+  memberName: string;
 }
 
 const MILESTONES: Milestone[] = [
@@ -19,40 +21,63 @@ const MILESTONES: Milestone[] = [
     name: "Boy With Luv Starter",
     description: "3 days of pure love and dedication!",
     songQuote: '"Oh my! Hey, my star. 💜" — Boy With Luv',
-    doodle: "/assets/generated/doodle-butterfly-transparent.dim_200x160.png",
     emoji: "🌸",
+    memberPhoto: "/assets/generated/bt21-chimmy.dim_200x200.png",
+    memberName: "Jimin (CHIMMY)",
   },
   {
     days: 7,
     name: "DNA Activated",
     description: "A whole week! It's in your DNA now!",
     songQuote: '"I\'ve been waiting all my life. ✨" — DNA',
-    doodle: "/assets/generated/doodle-bunny-transparent.dim_180x200.png",
     emoji: "🧬",
+    memberPhoto: "/assets/generated/bt21-van.dim_200x200.png",
+    memberName: "RM (VAN)",
   },
   {
     days: 14,
     name: "Spring Day Survivor",
     description: "Two weeks strong! Spring is yours!",
     songQuote: '"I miss you. Time passes like a heavy rain. 🌼" — Spring Day',
-    doodle: "/assets/generated/doodle-cat-transparent.dim_180x200.png",
-    emoji: "🌸",
+    emoji: "🌼",
+    memberPhoto: "/assets/generated/bt21-tata.dim_200x200.png",
+    memberName: "V (TATA)",
+  },
+  {
+    days: 21,
+    name: "Jin's Worldwide Fan",
+    description: "Three weeks! Worldwide handsome energy!",
+    songQuote: '"Eat Jin! Aww, this is delicious. 😄" — Jin',
+    emoji: "🌹",
+    memberPhoto: "/assets/generated/bt21-rj.dim_200x200.png",
+    memberName: "Jin (RJ)",
   },
   {
     days: 30,
     name: "Butter Smooth",
     description: "30 days! Smooth like butter!",
     songQuote: '"Smooth like butter, like a criminal undercover. 🧈" — Butter',
-    doodle: "/assets/generated/doodle-panda-transparent.dim_200x200.png",
     emoji: "🧈",
+    memberPhoto: "/assets/generated/bt21-cooky.dim_200x200.png",
+    memberName: "Jungkook (COOKY)",
+  },
+  {
+    days: 50,
+    name: "Suga's Agust D",
+    description: "50 days! Genius level dedication!",
+    songQuote: '"I′m never gonna let you down. 🎤" — Suga',
+    emoji: "🎤",
+    memberPhoto: "/assets/generated/bt21-shooky.dim_200x200.png",
+    memberName: "Suga (SHOOKY)",
   },
   {
     days: 100,
     name: "Dynamite ARMY",
     description: "100 days! You're an absolute ARMY legend!",
     songQuote: "\"'Cause I, I, I'm in the stars tonight! 💥\" — Dynamite",
-    doodle: "/assets/generated/doodle-bear-transparent.dim_180x200.png",
     emoji: "💥",
+    memberPhoto: "/assets/generated/bt21-mang.dim_200x200.png",
+    memberName: "J-Hope (MANG)",
   },
 ];
 
@@ -92,19 +117,46 @@ function BadgeCard({
         </div>
       )}
 
-      {/* Doodle */}
-      <div className="h-16 flex items-center justify-center mb-2 overflow-hidden">
-        <img
-          src={milestone.doodle}
-          alt={milestone.name}
-          className={`h-14 w-auto object-contain ${isUnlocked ? "animate-float" : ""}`}
-          style={{
-            filter: isUnlocked
-              ? "brightness(1.4) saturate(0) sepia(0.4) hue-rotate(250deg)"
-              : "brightness(0.5) saturate(0)",
-          }}
-        />
+      {/* Member BT21 character */}
+      <div className="h-20 flex items-center justify-center mb-2">
+        {(() => {
+          const BT21Char = getBT21Character(milestone.memberName);
+          return (
+            <div
+              className="flex items-center justify-center rounded-full"
+              style={{
+                width: 76,
+                height: 76,
+                border: isUnlocked
+                  ? "2px solid oklch(0.6 0.2 295 / 0.8)"
+                  : "2px solid oklch(0.3 0.05 295 / 0.4)",
+                boxShadow: isUnlocked
+                  ? "0 0 12px oklch(0.55 0.22 295 / 0.5)"
+                  : "none",
+                filter: isUnlocked ? "none" : "grayscale(1) brightness(0.4)",
+                background: isUnlocked
+                  ? "oklch(0.15 0.06 295 / 0.8)"
+                  : "oklch(0.12 0.03 295 / 0.6)",
+              }}
+            >
+              {BT21Char ? (
+                <BT21Char size={64} />
+              ) : (
+                <span className="text-2xl">{milestone.emoji}</span>
+              )}
+            </div>
+          );
+        })()}
       </div>
+      {/* Member name */}
+      {isUnlocked && (
+        <p
+          className="text-xs font-semibold mb-1"
+          style={{ color: "oklch(0.75 0.15 295)" }}
+        >
+          {milestone.memberName} 💜
+        </p>
+      )}
 
       {/* Days badge */}
       <div
@@ -226,16 +278,9 @@ export function StreaksView() {
               }}
               onClick={(e) => e.stopPropagation()}
             >
-              <p className="text-5xl mb-4">{popupMilestone.emoji}</p>
-              <img
-                src={popupMilestone.doodle}
-                alt={popupMilestone.name}
-                className="w-24 h-24 mx-auto mb-4 animate-burst"
-                style={{
-                  filter:
-                    "brightness(1.5) saturate(0) sepia(0.4) hue-rotate(250deg)",
-                }}
-              />
+              <p className="text-6xl mb-6 animate-burst">
+                {popupMilestone.emoji}
+              </p>
               <h3
                 className="text-2xl font-bold mb-2"
                 style={{
@@ -348,21 +393,27 @@ export function StreaksView() {
                 "Complete today's tasks to start your streak! 🌱"}
               {currentStreak > 0 &&
                 currentStreak < 3 &&
-                "Spring Day energy — keep going! 🌼"}
+                "Jimin is cheering you on — keep going! 🌸"}
               {currentStreak >= 3 &&
                 currentStreak < 7 &&
-                "Boy With Luv vibes! You've got this! 🌸"}
+                "Boy With Luv vibes with Jimin! You've got this! 🌸"}
               {currentStreak >= 7 &&
                 currentStreak < 14 &&
-                "DNA activated! One week strong! 🧬"}
+                "RM says: DNA activated! One week strong! 🧬"}
               {currentStreak >= 14 &&
+                currentStreak < 21 &&
+                "V's Spring Day energy — two weeks! 🌼"}
+              {currentStreak >= 21 &&
                 currentStreak < 30 &&
-                "Smooth like Butter! Two weeks! 🧈"}
+                "Jin says: Worldwide handsome dedication! 🌹"}
               {currentStreak >= 30 &&
+                currentStreak < 50 &&
+                "Jungkook's Golden streak — 30 days! 🧈"}
+              {currentStreak >= 50 &&
                 currentStreak < 100 &&
-                "Dynamite ARMY energy! A whole month! 💥"}
+                "Suga's Agust D level grind — 50 days! 🎤"}
               {currentStreak >= 100 &&
-                "LEGENDARY ARMY! You're absolutely Dynamite! 💥💜"}
+                "J-Hope's Dynamite ARMY! LEGENDARY! 💥💜"}
             </p>
           </>
         )}
@@ -421,7 +472,7 @@ export function StreaksView() {
           Milestone Badges
         </h3>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 lg:grid-cols-5">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 lg:grid-cols-4 xl:grid-cols-7">
           {MILESTONES.map((milestone, i) => {
             const isUnlocked = unlockedDays.has(milestone.days);
             const isNew = justUnlocked.has(milestone.days);

@@ -325,12 +325,6 @@ export function TodayView() {
           animate={{ opacity: 1 }}
           className="text-center py-16"
         >
-          <img
-            src="/assets/generated/doodle-panda-transparent.dim_200x200.png"
-            alt="Panda doodle"
-            className="w-28 h-28 mx-auto mb-4"
-            style={{ opacity: 0.9 }}
-          />
           <p
             className="text-xl font-semibold mb-2"
             style={{

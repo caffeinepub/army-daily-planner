@@ -124,9 +124,13 @@ export default function App() {
       className="min-h-screen relative"
       style={{ background: "transparent" }}
     >
-      {/* Background decorations */}
-      <DoodleDecorations />
-      <BTSSignatures />
+      {/* Doodles and BTS signatures — shown on Today tab only */}
+      {activeTab === "today" && (
+        <>
+          <DoodleDecorations />
+          <BTSSignatures />
+        </>
+      )}
 
       {/* Main content */}
       <div className="relative" style={{ zIndex: 1 }}>
