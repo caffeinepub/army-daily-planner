@@ -1,0 +1,299 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 1rem;
+
+    /* BTS Deep Purple Night Theme */
+    --background: 0.12 0.04 295;
+    --foreground: 0.96 0.01 295;
+
+    --card: 0.16 0.06 295;
+    --card-foreground: 0.96 0.01 295;
+
+    --popover: 0.18 0.07 295;
+    --popover-foreground: 0.96 0.01 295;
+
+    /* BTS Purple — vibrant */
+    --primary: 0.55 0.22 295;
+    --primary-foreground: 0.98 0.005 295;
+
+    /* Lavender soft */
+    --secondary: 0.25 0.08 295;
+    --secondary-foreground: 0.9 0.04 295;
+
+    --muted: 0.2 0.05 295;
+    --muted-foreground: 0.65 0.05 295;
+
+    /* Gold accent */
+    --accent: 0.78 0.18 75;
+    --accent-foreground: 0.12 0.04 295;
+
+    --destructive: 0.65 0.22 15;
+    --destructive-foreground: 0.98 0 0;
+
+    --border: 0.28 0.06 295;
+    --input: 0.22 0.06 295;
+    --ring: 0.55 0.22 295;
+
+    /* Chart colors */
+    --chart-1: 0.55 0.22 295;
+    --chart-2: 0.78 0.18 75;
+    --chart-3: 0.7 0.15 330;
+    --chart-4: 0.45 0.18 270;
+    --chart-5: 0.65 0.12 220;
+
+    --sidebar: 0.14 0.05 295;
+    --sidebar-foreground: 0.96 0.01 295;
+    --sidebar-primary: 0.55 0.22 295;
+    --sidebar-primary-foreground: 0.98 0.005 295;
+    --sidebar-accent: 0.25 0.08 295;
+    --sidebar-accent-foreground: 0.9 0.04 295;
+    --sidebar-border: 0.28 0.06 295;
+    --sidebar-ring: 0.55 0.22 295;
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Outfit', 'Segoe UI', sans-serif;
+  }
+}
+
+/* ========================
+   ARMY PLANNER CUSTOM CSS
+   ======================== */
+
+/* Body background: deep purple concert-hall gradient with star-field depth */
+body {
+  background: oklch(0.10 0.05 295);
+  background-image:
+    /* Top-left spotlight — warm purple */
+    radial-gradient(ellipse at 15% 10%, oklch(0.28 0.18 295 / 0.55) 0%, transparent 45%),
+    /* Bottom-right wash — violet-indigo */
+    radial-gradient(ellipse at 85% 90%, oklch(0.22 0.14 310 / 0.5) 0%, transparent 48%),
+    /* Centre deep glow */
+    radial-gradient(ellipse at 50% 45%, oklch(0.16 0.09 280 / 0.35) 0%, transparent 60%),
+    /* Gold bottom-left accent */
+    radial-gradient(ellipse at 5% 95%, oklch(0.3 0.1 75 / 0.2) 0%, transparent 35%),
+    /* Tiny star specks via noise-like spots */
+    radial-gradient(1px 1px at 20% 30%, oklch(0.8 0.05 295 / 0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 70% 15%, oklch(0.9 0.06 75 / 0.35) 0%, transparent 100%),
+    radial-gradient(1px 1px at 40% 70%, oklch(0.8 0.05 295 / 0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 85% 55%, oklch(0.85 0.04 295 / 0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 60% 85%, oklch(0.8 0.05 295 / 0.25) 0%, transparent 100%);
+  min-height: 100vh;
+}
+
+/* ---- Typography ---- */
+.font-display {
+  font-family: 'Fraunces', 'Georgia', serif;
+  font-variation-settings: 'SOFT' 100, 'WONK' 1;
+}
+
+.font-body {
+  font-family: 'Outfit', 'Segoe UI', sans-serif;
+}
+
+/* ---- Purple glow effects ---- */
+.glow-purple {
+  box-shadow:
+    0 0 20px oklch(0.55 0.22 295 / 0.4),
+    0 0 40px oklch(0.55 0.22 295 / 0.2);
+}
+
+.glow-gold {
+  box-shadow:
+    0 0 16px oklch(0.78 0.18 75 / 0.5),
+    0 0 32px oklch(0.78 0.18 75 / 0.25);
+}
+
+.glow-text-purple {
+  text-shadow:
+    0 0 20px oklch(0.7 0.22 295 / 0.8),
+    0 0 40px oklch(0.55 0.22 295 / 0.5);
+}
+
+/* ---- Card glass effect — elevated, with inner light ---- */
+.card-glass {
+  background: linear-gradient(
+    135deg,
+    oklch(0.18 0.08 295 / 0.92),
+    oklch(0.15 0.05 295 / 0.88)
+  );
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid oklch(0.4 0.12 295 / 0.45);
+  box-shadow:
+    0 0 0 1px oklch(0.28 0.08 295 / 0.25),
+    0 8px 32px oklch(0.05 0.02 295 / 0.55),
+    inset 0 1px 0 oklch(0.6 0.18 295 / 0.12);
+}
+
+/* ---- Progress bar custom ---- */
+.progress-bts [data-state] {
+  background: linear-gradient(90deg,
+    oklch(0.45 0.2 295),
+    oklch(0.6 0.22 295),
+    oklch(0.78 0.18 75)
+  );
+}
+
+/* ---- Checkbox custom purple ---- */
+.task-checkbox {
+  accent-color: oklch(0.55 0.22 295);
+}
+
+/* ---- Celebration burst ---- */
+@keyframes burst {
+  0% { transform: scale(0.5) rotate(-10deg); opacity: 0; }
+  60% { transform: scale(1.15) rotate(5deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-12px) rotate(2deg); }
+  66% { transform: translateY(-6px) rotate(-2deg); }
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(-3deg); }
+  50% { transform: translateY(-18px) rotate(3deg); }
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0.5; transform: scale(1) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.15) rotate(180deg); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes confetti {
+  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow:
+      0 0 0 2px oklch(0.5 0.2 295 / 0.35),
+      0 0 10px oklch(0.55 0.22 295 / 0.4),
+      0 0 22px oklch(0.45 0.2 295 / 0.2);
+  }
+  50% {
+    box-shadow:
+      0 0 0 2px oklch(0.62 0.22 295 / 0.55),
+      0 0 20px oklch(0.58 0.22 295 / 0.7),
+      0 0 44px oklch(0.5 0.2 295 / 0.35),
+      0 0 70px oklch(0.45 0.18 295 / 0.15);
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-burst { animation: burst 0.5s ease-out; }
+.animate-float { animation: float 4s ease-in-out infinite; }
+.animate-float-slow { animation: floatSlow 6s ease-in-out infinite; }
+.animate-sparkle { animation: sparkle 2s ease-in-out infinite; }
+.animate-fade-in-up { animation: fadeInUp 0.4s ease-out; }
+.animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    oklch(0.25 0.08 295) 0%,
+    oklch(0.4 0.15 295) 50%,
+    oklch(0.25 0.08 295) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* ---- Confetti particles ---- */
+.confetti-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.confetti-piece {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  animation: confetti 2.5s ease-in forwards;
+}
+
+/* ---- Milestone badge ---- */
+.badge-locked {
+  filter: grayscale(0.9) brightness(0.5);
+}
+
+.badge-unlocked {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* ---- Tab styling ---- */
+.bts-tab-active {
+  background: oklch(0.55 0.22 295 / 0.2);
+  border-bottom: 2px solid oklch(0.55 0.22 295);
+  color: oklch(0.85 0.12 295);
+}
+
+/* ---- Streak flame ---- */
+@keyframes flicker {
+  0%, 100% { transform: scaleY(1) scaleX(1); }
+  25% { transform: scaleY(1.05) scaleX(0.97); }
+  50% { transform: scaleY(0.98) scaleX(1.02); }
+  75% { transform: scaleY(1.03) scaleX(0.99); }
+}
+
+.animate-flicker {
+  animation: flicker 1s ease-in-out infinite;
+  display: inline-block;
+}
+
+/* ---- Task item animation ---- */
+.task-item-enter {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+/* ---- Scrollbar ---- */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: oklch(0.15 0.05 295);
+}
+::-webkit-scrollbar-thumb {
+  background: oklch(0.35 0.12 295);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.5 0.18 295);
+}
+
+/* ---- Focus ring ---- */
+:focus-visible {
+  outline: 2px solid oklch(0.55 0.22 295);
+  outline-offset: 2px;
+}
+
+/* ---- Selection ---- */
+::selection {
+  background: oklch(0.55 0.22 295 / 0.3);
+  color: oklch(0.96 0.01 295);
+}
